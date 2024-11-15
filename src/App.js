@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TopSection from './components/TopSection';
+import FeedbackSection from './components/FeedbackSection';
+import FeedbackModal from './components/FeedbackModal';
+import { Container } from './styles/CommonStyles';
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <TopSection />
+      <FeedbackSection 
+        onFeedbackClick={() => setIsModalOpen(true)}
+        onPrintClick={handlePrint}
+      />
+      <FeedbackModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </Container>
   );
 }
 
